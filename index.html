@@ -1,8 +1,25 @@
-<html>
-  <head>
-    <script type="application/javascript" src="app.js"></script>
-  </head>
-  <h1>Access Denied</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web sheets</title>  
+  <script defer src="app.js"></script>
+  <script defer src="auth.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</head>
+<body>
+  <div id="loader">
+    <h1>Access Denied</h1>
 
-  <p id="loader">Loading ...</p>
+    <p>Loading ...</p>
+  </div>
+  
+    <!--Add buttons to initiate auth sequence and sign out-->
+  <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+  <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+
+  <pre id="content" style="white-space: pre-wrap;"></pre>
+</body>
 </html>
