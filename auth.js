@@ -80,7 +80,7 @@ function handleAuthClick() {
         tokenClient.requestAccessToken({ prompt: 'consent' });
     } else {
         // Skip display of account chooser and consent dialog for an existing session.
-        tokenClient.requestAccessToken({ prompt: '' });
+        tokenClient.requestAccessToken({ prompt: 'none' });
     }
 }
 
