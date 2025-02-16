@@ -26,19 +26,17 @@ function fetchSheetData() {
 }
 
 /**
- * Print the names and majors of students in a sample spreadsheet:
- * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+ * do the thing
  */
 async function getContent() {
   document.getElementById('loader').style.visibility = 'hidden';
-  alert('authorized, getting content...');
-
+  
   let response;
   try {
       // Fetch first 10 files
       response = await gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-          range: 'Class Data!A2:E',
+          spreadsheetId: '1mW9Ur226Y59u-GV5IFUCBCJey9HDvfu7kpXVheej2Ik',
+          range: 'sheetweb!A2:C',
       });
   } catch (err) {
       document.getElementById('content').innerText = err.message;
@@ -52,6 +50,6 @@ async function getContent() {
   // Flatten to string to display
   const output = range.values.reduce(
       (str, row) => `${str}${row[0]}, ${row[4]}\n`,
-      'Name, Major:\n');
+      'ColumnA, ColumnC:\n');
   document.getElementById('content').innerText = output;
 }
