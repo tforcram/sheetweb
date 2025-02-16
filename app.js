@@ -49,7 +49,7 @@ async function getContent() {
   }
   // Flatten to string to display
   const output = range.values.reduce(
-      (str, row) => `${str}${row[0]}, ${row[4]}\n`,
+      (str, row) => `${str}${row[0]}, ${row[2]}\n`,
       'ColumnA, ColumnC:\n');
   document.getElementById('content').innerText = output;
 }
