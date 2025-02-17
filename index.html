@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web sheets</title>  
+  <title>Web sheets</title>
   <script defer src="auth.js"></script>
   <script defer src="app.js"></script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </head>
+
 <body>
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
+    import { getFirestore, collection, getDocs } from 'firebase/firestore';
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
-  
+
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
       //TODO: add
     };
-  
+
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+    // Reference to a collection
+    const colRef = collection(db, 'users');
+
+    // Get all documents in the collection
+    getDocs(colRef).then(snapshot => {
+      let data = [];
+      snapshot.docs.forEach(doc => {
+        data.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(data);
+    }).catch(error => {
+      console.log("Error getting documents: ", error);
+    });
   </script>
   <div id="loader">
     <h1>Access Denied</h1>
 
     <p>Loading ...</p>
   </div>
-  
-    <!--Add buttons to initiate auth sequence and sign out-->
+
+  <!--Add buttons to initiate auth sequence and sign out-->
   <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
   <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
   <pre id="content" style="white-space: pre-wrap;"></pre>
 </body>
+
 </html>
